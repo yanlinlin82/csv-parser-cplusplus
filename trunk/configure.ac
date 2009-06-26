@@ -29,22 +29,26 @@ AC_PREFIX_PROGRAM(which)
 dnl Ensures that a recent enough version of autoconf is being used
 AC_PREREQ(2.61)
 
-dnl Checking if the compiler supports C++
+dnl Checking if the compiler supports C++.
 AC_LANG(C++)
 
-dnl Check for the C++ compiler
+dnl Check for the C++ compiler.
 AC_PROG_CXX
 
-dnl Check for the existence of libtool
+dnl Check for the existence of libtool.
 AC_PROG_LIBTOOL
 
-dnl Grab the path where libtool is installed
+dnl Grab the path where libtool is installed.
 AC_CHECK_PROG(libtool_path, libtool, true, false)
 
 dnl Insert the copyright notice
 AC_COPYRIGHT([Copyright (C) 2008 - 2009, Israel Ekpo, <israel.ekpo@israelekpo.com>])
 
-dnl Save the settings into the Makefile
+dnl This should create the license file.
+dnl It also guarantees that the LICENSE.in will be in the tarball.
+AC_OUTPUT(LICENSE)
+
+dnl Save the settings into the Makefile.
 AC_OUTPUT(Makefile)
 
 dnl Save the changes into the csv_parser-config file
