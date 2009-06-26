@@ -1,7 +1,9 @@
 
 dnl Mandatory Autoconf Initialization Macro
-AC_INIT(csv_parser, 1.0, israel.ekpo@bonniercorp.com, csv_parser)
+dnl package_name, version_number, optional bug report email, tarball_name for tar.gz release files
+AC_INIT(csv_parser, 1.0, israel.ekpo@israelekpo.com, csv_parser-dev)
 
+dnl Defining the AX_EXPAND_PREFIX function
 AC_DEFUN([AX_EXPAND_PREFIX],[dnl
 
   test "x$prefix" = xNONE && prefix=$ac_default_prefix
@@ -9,10 +11,22 @@ AC_DEFUN([AX_EXPAND_PREFIX],[dnl
   test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
 ])
 
+dnl Makes the value for prefix and exec_prefix available for substitution
 AX_EXPAND_PREFIX
 
+dnl Automake initialization. This method is obselete but needed for us to proceed.
 AM_INIT_AUTOMAKE(csv_parser, 1.0)
 
+dnl Set the default installation prefix to /usr instead of /usr/local
+AC_PREFIX_DEFAULT(/usr)
+
+dnl If the user did not specify an installation prefix (using the --prefix option)
+dnl guess a value for it by looking for which
+dnl If program is found, set the prefix to the parent of the directory containing which
+dnl else default the /usr as described above
+AC_PREFIX_PROGRAM(which)
+
+dnl Ensures that a recent enough version of autoconf is being used
 AC_PREREQ(2.61)
 
 dnl Checking if the compiler supports C++
@@ -21,10 +35,14 @@ AC_LANG(C++)
 dnl Check for the C++ compiler
 AC_PROG_CXX
 
+dnl Check for the existence of libtool
 AC_PROG_LIBTOOL
 
+dnl Grab the path where libtool is installed
 AC_CHECK_PROG(libtool_path, libtool, true, false)
 
+dnl Save the settings into the Makefile
 AC_OUTPUT(Makefile)
 
+dnl Save the changes into the csv_parser-config file
 AC_OUTPUT(csv_parser-config)
