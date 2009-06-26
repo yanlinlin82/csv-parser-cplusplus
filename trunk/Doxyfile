@@ -6,7 +6,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "CSV Parser"
 PROJECT_NUMBER         = 1.0
-OUTPUT_DIRECTORY       = /home/iekpo/Desktop/csv_parser/
+OUTPUT_DIRECTORY       = doc
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES

@@ -25,6 +25,6 @@ AC_PROG_LIBTOOL
 
 AC_CHECK_PROG(libtool_path, libtool, true, false)
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(Makefile include/csv_parser/Makefile)
 
 AC_OUTPUT(csv_parser-config)
