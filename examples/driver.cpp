@@ -1,5 +1,5 @@
 
-#include <csv_parser.hpp>
+#include <csv_parser/csv_parser.hpp>
 
 /**
  * Driver File
@@ -26,41 +26,12 @@
  * @li	44	0x2C	comma
  * @li	92	0x5C	backslash
  *
- * @author Israel Ekpo <perfectvista@israelekpo.com>
+ * @author Israel Ekpo <israel.ekpo@israelekpo.com>
  */
 
 int main(void)
 {
-	/*
-	const char * filename = "sample_feeds/orlando_sentinel.csv";
-	const char * filename = "sample_feeds/yacht_council.csv";
-	const char * filename = "input.csv";
-
-	const char * filename = "sample_feeds/orlando_sentinel.csv";
-	const char enclosure_char = '"';
-	const char field_terminator = ';';
-	const char line_terminator  = '\n';
-
-	const char * filename = "input.csv";
-	const char enclosure_char = '"';
-	const char field_terminator = ',';
-	const char line_terminator  = '\n';
-
-	const char * filename = "input2.csv";
-	const char field_terminator = ',';
-	const char line_terminator  = '\n';
-
-	const char * filename = "input3.csv";
-	const char field_terminator = ',';
-	const char line_terminator  = '\n';
-
-	const char * filename = "sample_feeds/yacht_council.csv";
-	const char enclosure_char = '"';
-	const char field_terminator = ',';
-	const char line_terminator  = '\n';
-	*/
-
-	const char * filename = "input4.csv";
+	const char * filename = "example_input.csv";
 	const char field_terminator = ',';
 	const char line_terminator  = '\n';
 	const char enclosure_char   = '"';
