@@ -41,8 +41,33 @@ AC_PROG_LIBTOOL
 dnl Grab the path where libtool is installed
 AC_CHECK_PROG(libtool_path, libtool, true, false)
 
+dnl Insert the copyright notice
+AC_COPYRIGHT([Copyright (C) 2008 - 2009, Israel Ekpo, <israel.ekpo@israelekpo.com>])
+
 dnl Save the settings into the Makefile
 AC_OUTPUT(Makefile)
 
 dnl Save the changes into the csv_parser-config file
 AC_OUTPUT(csv_parser-config)
+
+AC_MSG_NOTICE([
+
+Environment configuration has completed successfully.
+
+You are now ready to run make and make install.
+
+This will install your csv_parser library object code into $prefix/lib and your development header files into $prefix/include/csv_parser
+
++------------------------------------------------------------------------+
+| License:                                                               |
+| This software is subject to the new BSD License, available in this     |
+| distribution in the file LICENSE.  By continuing this installation     |
+| process, you are bound by the terms of this license agreement.         |
+| If you do not agree with the terms of this license, you must abort     |
+| the installation process at this point.                                |
++------------------------------------------------------------------------+
+
+Thank you for using csv_parser.
+
+])
+
