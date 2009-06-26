@@ -1,12 +1,12 @@
 /**
- * CSV Parser Header File
+ * csv_parser Header File
  *
  * This object is used to parse text documents that are delimited by some
  * type of character. Some of the common ones use spaces, tabs, commas and semi-colons.
  *
  * This is a list of common characters encountered by this program
  *
- * This list is from http://asciitable.com/
+ * This list was prepared from the data from http://www.asciitable.com
  *
  * @li DEC is how it would be represented in decimal form (base 10)
  * @li HEX is how it would be represented in hexadecimal format (base 16)
@@ -23,7 +23,7 @@
  * @li	44	0x2C	comma
  * @li	92	0x5C	backslash
  *
- * @author Israel Ekpo <perfectvista@israelekpo.com>
+ * @author Israel Ekpo <israel.ekpo@israelekpo.com>
  */
 
 #ifndef CSV_PARSER_HPP_INCLUDED
@@ -58,7 +58,7 @@ typedef vector <string> csv_row;
  */
 typedef csv_row * csv_row_ptr;
 
-/*
+/**
  * @typedef enclosure_type_t
  *
  * This enum type is used to set the mode in which the CSV file is parsed.
@@ -142,7 +142,7 @@ if (fptr != NULL)						\
  * @see csv_parser::set_enclosed_char()
  * @see enclosure_type_t
  *
- * @author Israel Ekpo <perfectvista@israelekpo.com>
+ * @author Israel Ekpo <israel.ekpo@israelekpo.com>
  */
 class csv_parser
 {
@@ -276,6 +276,7 @@ public :
 	 *
 	 * The row is returned as a vector of string objects.
 	 *
+	 *
 	 * @return void
 	 */
 	csv_row get_row(void);
@@ -360,55 +361,92 @@ private :
 
 protected :
 
-	/*
+	/**
 	 * The enclosure character
 	 *
-	 * @var enclosed_char This is that single character used in the document to wrap the fields.
+	 * If present or used for a field it is assumed that both ends of the fields are wrapped.
+	 *
+	 * This is that single character used in the document to wrap the fields.
+	 *
+	 * @see csv_parser::_get_fields_without_enclosure()
+	 * @see csv_parser::_get_fields_with_enclosure()
+	 * @see csv_parser::_get_fields_with_optional_enclosure()
+	 *
+	 * @var enclosed_char
 	 */
 	char enclosed_char;
 
-	/*
+	/**
 	 * The escape character
 	 *
-	 * @var escaped_char This is the backslash character used to escape enclosure characters found within the fields.
+	 * For now the only valid escape character allowed is the backslash character 0x5C
+	 *
+	 * This is only important when the enclosure character is required or optional.
+	 *
+	 * This is the backslash character used to escape enclosure characters found within the fields.
+	 *
+	 * @see csv_parser::_get_fields_with_enclosure()
+	 * @see csv_parser::_get_fields_with_optional_enclosure()
+	 * @todo Update the code to accept other escape characters besides the backslash
+	 *
+	 * @var escaped_char
 	 */
 	char escaped_char;
 
-	/*
+	/**
 	 * The field terminator
 	 *
-	 * @var field_term_char This is the single character used to separate fields within a record.
+	 * This is the single character used to mark the end of a column in the text file.
+	 *
+	 * Common characters used include the comma, tab, and semi-colons.
+	 *
+	 * This is the single character used to separate fields within a record.
+	 *
+	 * @var field_term_char
 	 */
 	char field_term_char;
 
-	/*
+	/**
 	 * The record terminator
 	 *
-	 * @var line_term_char This is the single character used to mark the end of a record
+	 * This is the single character used to mark the end of a record in the text file.
+	 *
+	 * The most popular one is the new line character however it is possible to use others as well.
+	 *
+	 * This is the single character used to mark the end of a record
+	 *
+	 * @see csv_parser::get_row()
+	 *
+	 * @var line_term_char
 	 */
 	char line_term_char;
 
-	/*
+	/**
 	 * Enclosure length
 	 *
 	 * This is the length of the enclosure character
 	 *
 	 * @see csv_parser::csv_parser()
 	 * @see csv_parser::set_enclosed_char()
+	 *
 	 * @var enclosed_length
 	 */
 	unsigned int enclosed_length;
 
-	/*
+	/**
 	 * The length of the escape character
 	 *
-	 * Right now this is really not being used. It will be used in future versions of the object.
+	 * Right now this is really not being used.
+	 *
+	 * It may be used in future versions of the object.
+	 *
+	 * @todo Update the code to accept other escape characters besides the backslash
 	 *
 	 * @var escaped_length
 	 */
 	unsigned int escaped_length;
 
-	/*
+	/**
 	 * Length of the field terminator
 	 *
 	 * For now this is not being used. It will be used in future versions of the object.
@@ -417,7 +455,7 @@ protected :
 	 */
 	unsigned int field_term_length;
 
-	/*
+	/**
 	 * Length of the record terminator
 	 *
 	 * For now this is not being used. It will be used in future versions of the object.
@@ -426,16 +464,19 @@ protected :
 	 */
 	unsigned int line_term_length;
 
-	/*
+	/**
 	 * Number of records to discard
 	 *
 	 * This variable controls how many records in the file are skipped before parsing begins.
+	 *
+	 * @see csv_parser::_skip_lines()
+	 * @see csv_parser::set_skip_lines()
 	 *
 	 * @var ignore_num_lines
 	 */
 	unsigned int ignore_num_lines;
 
-	/*
+	/**
 	 * Number of times the get_row() method has been called
 	 *
 	 * @see csv_parser::get_row()
@@ -443,7 +484,7 @@ protected :
 	 */
 	unsigned int record_count;
 
-	/*
+	/**
 	 * The CSV File Pointer
 	 *
 	 * This is the pointer to the CSV file
@@ -452,7 +493,7 @@ protected :
 	 */
 	FILE * input_fp;
 
-	/*
+	/**
 	 * Buffer to input file name
 	 *
 	 * This buffer is used to store the name of the file that is being parsed
@@ -470,16 +511,18 @@ protected :
 	 * @li ENCLOSURE_REQUIRED 	(2) means the CSV file requires enclosure characters for all the fields
 	 * @li ENCLOSURE_OPTIONAL 	(3) means the use of enclosure characters for the fields is optional
 	 *
+	 * @see csv_parser::get_row()
 	 * @var enclosure_type
 	 */
 	enclosure_type_t enclosure_type;
 
-	/*
+	/**
 	 * There are still more records to parse
 	 *
 	 * This boolean property is an internal indicator of whether there are still records in the
 	 * file to be parsed.
 	 *
+	 * @see csv_parser::has_more_rows()
 	 * @var more_rows
 	 */
 	bool more_rows;
