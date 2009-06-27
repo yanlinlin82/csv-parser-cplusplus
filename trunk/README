@@ -40,7 +40,7 @@ LIBRARY INSTALLATION
 
 Decompress the tarball
 
-tar -zxvf csv_parser-x.x.tar.gz
+tar -zxvf csv_parser-x.x.x.tar.gz
 
 cd csv_parser
 
