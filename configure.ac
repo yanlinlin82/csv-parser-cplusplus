@@ -1,7 +1,7 @@
 
 dnl Mandatory Autoconf Initialization Macro
 dnl package_name, version_number, optional bug report email, tarball_name for tar.gz release files
-AC_INIT(csv_parser, 1.0, israel.ekpo@israelekpo.com, csv_parser-dev)
+AC_INIT(libcsv_parser++, 1.0.0, israel.ekpo@israelekpo.com, libcsv_parser++-dev)
 
 dnl Defining the AX_EXPAND_PREFIX function
 AC_DEFUN([AX_EXPAND_PREFIX],[dnl
@@ -15,7 +15,7 @@ dnl Makes the value for prefix and exec_prefix available for substitution
 AX_EXPAND_PREFIX
 
 dnl Automake initialization. This method is obselete but needed for us to proceed.
-AM_INIT_AUTOMAKE(csv_parser, 1.0)
+AM_INIT_AUTOMAKE(libcsv_parser++, 1.0.0)
 
 dnl Set the default installation prefix to /usr instead of /usr/local
 AC_PREFIX_DEFAULT(/usr)
@@ -71,7 +71,7 @@ This will install your csv_parser library object code into $prefix/lib and your 
 | the installation process at this point.                                |
 +------------------------------------------------------------------------+
 
-Thank you for using csv_parser.
+Thank you for using libcsv_parser++.
 
 ])
 
