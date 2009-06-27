@@ -38,7 +38,7 @@ int main(void)
 
 	csv_parser file_parser;
 
-	file_parser.set_skip_lines(0);
+	file_parser.set_skip_lines(1);
 
 	file_parser.init(filename);
 	file_parser.set_enclosed_char(enclosure_char, ENCLOSURE_OPTIONAL);
