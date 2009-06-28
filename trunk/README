@@ -5,6 +5,8 @@ Introduction
 
 The home page for this project is : http://code.google.com/p/csv-parser-cplusplus/
 
+The source documentation is available on this page http://www.israelekpo.com/csv-parser-documentation/
+
 This is a C++ library for parsing text files.
 
 The records could be comma delimited, tab delimited or delimited with any set of characters.
