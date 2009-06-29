@@ -27,7 +27,16 @@
  */
 
 #ifndef CSV_PARSER_HPP_INCLUDED
+
 #define CSV_PARSER_HPP_INCLUDED
+
+#define LIBCSV_PARSER_MAJOR_VERSION 1
+
+#define LIBCSV_PARSER_MINOR_VERSION 0
+
+#define LIBCSV_PARSER_PATCH_VERSION 0
+
+#define LIBCSV_PARSER_VERSION_NUMBER 10000
 
 /* C++ header files */
 #include <string>
@@ -142,6 +151,12 @@ if (fptr != NULL)						\
  * @see csv_parser::set_enclosed_char()
  * @see enclosure_type_t
  *
+ * @todo Add ability to parse files where fields/columns are terminated by strings instead of just one char.
+ * @todo Add ability to set strings where lines start by. Currently lines do not have any starting char or string.
+ * @todo Add ability to set strings where line end by. Currently lines can only end with a single char.
+ * @todo Add ability to accept other escape characters besides the backslash character 0x5C.
+ * @todo More support for improperly formatted CSV data files.
+ *
  * @author Israel Ekpo <israel.ekpo@israelekpo.com>
  */
 class csv_parser
@@ -182,6 +197,9 @@ public :
 	 *
 	 * In the class destructor the file pointer to the input CSV file is closed and
 	 * the buffer to the input file name is also deallocated.
+	 *
+	 * @see csv_parser::input_fp
+	 * @see csv_parser::input_filename
 	 */
 	~csv_parser()
 	{
@@ -251,6 +269,11 @@ public :
 	 * This method returns a boolean value indicating whether or not there are
 	 * still more records to be extracted in the current file being parsed.
 	 *
+	 * Call this method to see if there are more rows to retrieve before invoking csv_parser::get_row()
+	 *
+	 * @see csv_parser::get_row()
+	 * @see csv_parser::more_rows
+	 *
 	 * @return bool Returns true if there are still more rows and false if there is not.
 	 */
 	bool has_more_rows(void)
@@ -262,6 +285,10 @@ public :
 	 * Defines the number of records to discard
 	 *
 	 * The number of records specified will be discarded during the parsing process.
+	 *
+	 * @see csv_parser::_skip_lines()
+	 * @see csv_parser::get_row()
+	 * @see csv_parser::has_more_rows()
 	 *
 	 * @param[in] lines_to_skip How many records should be skipped
 	 * @return void
@@ -276,14 +303,21 @@ public :
 	 *
 	 * The row is returned as a vector of string objects.
 	 *
+	 * This method should be called only if csv_parser::has_more_rows() is true
 	 *
-	 * @return void
+	 * @see csv_parser::has_more_rows()
+	 * @see csv_parser::get_record_count()
+	 * @see csv_parser::reset_record_count()
+	 * @see csv_parser::more_rows
+	 *
+	 * @return csv_row A vector type containing an array of strings
 	 */
 	csv_row get_row(void);
 
 	/**
 	 * Returns the number of times the csv_parser::get_row() method has been invoked
 	 *
+	 * @see csv_parser::reset_record_count()
 	 * @return unsigned int The number of times the csv_parser::get_row() method has been invoked.
 	 */
 	unsigned int get_record_count(void)
@@ -296,6 +330,8 @@ public :
 	 *
 	 * This may be used if the object is reused multiple times.
 	 *
+	 * @see csv_parser::record_count
+	 * @see csv_parser::get_record_count()
 	 * @return void
 	 */
 	void reset_record_count(void)
@@ -309,6 +345,10 @@ private :
 	 * Ignores N records in the CSV file
 	 *
 	 * Where N is the value of the csv_parser::ignore_num_lines internal property.
+	 *
+	 * The number of lines skipped can be defined by csv_parser::set_skip_lines()
+	 *
+	 * @see csv_parser::set_skip_lines()
 	 *
 	 * @return void
 	 */
@@ -512,6 +552,11 @@ protected :
 	 * @li ENCLOSURE_OPTIONAL 	(3) means the use of enclosure characters for the fields is optional
 	 *
 	 * @see csv_parser::get_row()
+	 * @see csv_parser::_read_single_line()
+	 * @see csv_parser::_get_fields_without_enclosure()
+	 * @see csv_parser::_get_fields_with_enclosure()
+	 * @see csv_parser::_get_fields_with_optional_enclosure()
+	 *
 	 * @var enclosure_type
 	 */
 	enclosure_type_t enclosure_type;
