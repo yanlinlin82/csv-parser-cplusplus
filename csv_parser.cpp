@@ -1,21 +1,9 @@
 
+/* INCLUDING HEADER FILES */
 #include <csv_parser/csv_parser.hpp>
 
-void csv_parser::_skip_lines(void)
-{
-	/* Just in case the user accidentally sets ignore_num_lines to a negative number */
-	unsigned int number_of_lines_to_ignore = abs((int) ignore_num_lines);
 
-	while(has_more_rows() && number_of_lines_to_ignore)
-	{
-		const csv_row row = get_row();
-
-		number_of_lines_to_ignore--;
-	}
-
-	record_count = 0U;
-}
-
+/* BEGIN DEFINITION FOR PUBLIC METHODS */
 bool csv_parser::init(FILE * input_file_pointer)
 {
 	input_fp = input_file_pointer;
@@ -147,6 +135,26 @@ csv_row csv_parser::get_row(void)
 	record_count++;
 
 	return current_row;
+}
+
+/* BEGIN DEFINITION FOR PROTECTED METHODS */
+
+
+/* BEGIN DEFINITION FOR PRIVATE METHODS */
+
+void csv_parser::_skip_lines(void)
+{
+	/* Just in case the user accidentally sets ignore_num_lines to a negative number */
+	unsigned int number_of_lines_to_ignore = abs((int) ignore_num_lines);
+
+	while(has_more_rows() && number_of_lines_to_ignore)
+	{
+		const csv_row row = get_row();
+
+		number_of_lines_to_ignore--;
+	}
+
+	record_count = 0U;
 }
 
 void csv_parser::_get_fields_without_enclosure(csv_row_ptr row, const char * line, const unsigned int * line_length)
@@ -433,6 +441,7 @@ void csv_parser::_read_single_line(char ** buffer, unsigned int * buffer_len)
 
 	register int current_char = 0;
 
+	/* Checking one character at a time until the end of a line is found */
 	while(true)
 	{
 		current_char = fgetc(input_fp);
@@ -457,7 +466,7 @@ void csv_parser::_read_single_line(char ** buffer, unsigned int * buffer_len)
 		}
 	}
 
-	/* Let's try to peek ahead to see if we are at the end of the file */
+	/* Let's try to peek one character ahead to see if we are at the end of the file */
 	if (more_rows)
 	{
 		current_char = fgetc(input_fp);
